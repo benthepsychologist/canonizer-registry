@@ -1,0 +1,25 @@
+# Transform identity
+id: email/gmail_to_canonical
+version: 1.0.0
+engine: jsonata
+
+# Schema contracts
+from_schema: iglu:com.google/gmail_email/jsonschema/1-0-0
+to_schema: iglu:org.canonical/email/jsonschema/1-0-0
+
+# Golden tests (required)
+tests:
+  - input: tests/input.json
+    expect: tests/expected.json
+
+# Integrity
+checksum:
+  jsonata_sha256: "29284602595b686788105d02187d37138a10dd012d8e2b70afdf0a5e67f80a21"
+
+# Provenance
+provenance:
+  author: "Ben Machina <ben@therapyai.com>"
+  created_utc: "2025-11-09T00:00:00Z"
+
+# Lifecycle
+status: stable

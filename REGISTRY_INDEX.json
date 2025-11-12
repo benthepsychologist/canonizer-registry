@@ -1,6 +1,33 @@
 {
   "version": "1.0.0",
-  "generated_at": "2025-11-12T20:55:00Z",
-  "transforms": [],
-  "schemas": []
+  "generated_at": "2025-11-12T22:48:32.406373+00:00",
+  "transforms": [
+    {
+      "id": "email/gmail_to_canonical",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "from_schema": "iglu:com.google/gmail_email/jsonschema/1-0-0",
+          "to_schema": "iglu:org.canonical/email/jsonschema/1-0-0",
+          "status": "stable",
+          "path": "transforms/email/gmail_to_canonical/1.0.0/",
+          "checksum": {
+            "jsonata_sha256": "29284602595b686788105d02187d37138a10dd012d8e2b70afdf0a5e67f80a21"
+          },
+          "author": "Ben Machina <ben@therapyai.com>",
+          "created_utc": "2025-11-09T00:00:00Z"
+        }
+      ]
+    }
+  ],
+  "schemas": [
+    {
+      "uri": "iglu:com.google/gmail_email/jsonschema/1-0-0",
+      "path": "schemas/com.google/gmail_email/jsonschema/1-0-0.json"
+    },
+    {
+      "uri": "iglu:org.canonical/email/jsonschema/1-0-0",
+      "path": "schemas/org.canonical/email/jsonschema/1-0-0.json"
+    }
+  ]
 }
