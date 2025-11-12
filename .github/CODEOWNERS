@@ -1,0 +1,25 @@
+# Canonizer Registry Code Owners
+#
+# These owners will be requested for review when someone opens a pull request
+# that modifies files in these directories.
+#
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+* @benthepsychologist
+
+# Canonical schemas require maintainer approval
+/schemas/org.canonical/ @benthepsychologist
+
+# Core infrastructure
+/.github/ @benthepsychologist
+/tools/ @benthepsychologist
+
+# Email transforms - require domain expert review
+/transforms/email/ @benthepsychologist
+
+# CRM transforms - require domain expert review
+/transforms/crm/ @benthepsychologist
+
+# Analytics transforms - require domain expert review
+/transforms/analytics/ @benthepsychologist

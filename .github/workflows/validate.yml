@@ -1,0 +1,84 @@
+name: Validate Registry
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml jsonschema jsonata-python
+
+      - name: Validate structure
+        run: |
+          echo "Validating directory structure..."
+          python tools/validate.py --check-structure
+
+      - name: Validate transforms
+        run: |
+          echo "Validating transforms..."
+          python tools/validate.py --check-transforms
+
+      - name: Validate schemas
+        run: |
+          echo "Validating schemas..."
+          python tools/validate.py --check-schemas
+
+      - name: Generate index
+        run: |
+          echo "Generating REGISTRY_INDEX.json..."
+          python tools/generate_index.py
+
+      - name: Commit index (main branch only)
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          if [[ -n $(git status --porcelain REGISTRY_INDEX.json) ]]; then
+            git add REGISTRY_INDEX.json
+            git commit -m "chore: Update REGISTRY_INDEX.json [skip ci]"
+            git push
+          else
+            echo "REGISTRY_INDEX.json unchanged, skipping commit"
+          fi
+
+      - name: Upload index artifact (PR only)
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v3
+        with:
+          name: registry-index
+          path: REGISTRY_INDEX.json
+
+      - name: Validation summary
+        run: |
+          echo "✅ All validations passed!"
+          echo "📊 Registry statistics:"
+          python -c "
+          import json
+          with open('REGISTRY_INDEX.json') as f:
+              index = json.load(f)
+          print(f'  Transforms: {len(index[\"transforms\"])}')
+          print(f'  Schemas: {len(index[\"schemas\"])}')
+          "
