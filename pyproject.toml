@@ -1,0 +1,24 @@
+[project]
+name = "canonizer-registry"
+version = "0.1.0"
+description = "Git-based transform and schema registry for Canonizer"
+authors = [{name = "Ben Machina", email = "ben@therapyai.com"}]
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+
+# Dependencies for validation and index generation scripts
+dependencies = [
+    "pyyaml>=6.0.1",
+    "jsonschema>=4.20.0",
+    "jsonata-python>=0.6.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/benthepsychologist/canonizer-registry"
+Repository = "https://github.com/benthepsychologist/canonizer-registry"
+Issues = "https://github.com/benthepsychologist/canonizer-registry/issues"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
