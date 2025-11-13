@@ -2,9 +2,15 @@
   "id": "AAMkAGI2THVSAAA=",
   "blobId": "blob-AAMkAGI2THVSAAA=",
   "threadId": "AAQkAGI2TAABj5P2QAAA=",
-  "messageId": ["<CABcD1E2FgH3IjK4LmN5OpQ6RsT7UvW8XyZ9@mail.company.com>"],
-  "inReplyTo": ["<CAAbC9D8EfG7HiJ6KlM4NnO3PpQ2RrS1TuV0WxY8@mail.example.com>"],
-  "references": ["<CAAbC9D8EfG7HiJ6KlM4NnO3PpQ2RrS1TuV0WxY8@mail.example.com>"],
+  "messageId": [
+    "<CABcD1E2FgH3IjK4LmN5OpQ6RsT7UvW8XyZ9@mail.company.com>"
+  ],
+  "inReplyTo": [
+    "<CAAbC9D8EfG7HiJ6KlM4NnO3PpQ2RrS1TuV0WxY8@mail.example.com>"
+  ],
+  "references": [
+    "<CAAbC9D8EfG7HiJ6KlM4NnO3PpQ2RrS1TuV0WxY8@mail.example.com>"
+  ],
   "from": [
     {
       "name": "Sarah Smith",
@@ -28,7 +34,7 @@
   "subject": "Follow-up: Q4 Report Request",
   "sentAt": "2023-11-09T20:00:00Z",
   "receivedAt": "2023-11-09T20:00:15Z",
-  "size": 183,
+  "size": 272,
   "preview": "Hi John, Just wanted to follow up on our meeting yesterday. Can you send over the Q4 report when you get a chance? Thanks, Sarah",
   "body": {
     "text": null,
@@ -41,6 +47,9 @@
     "$flagged": false,
     "$draft": false
   },
-  "labels": ["Work", "Important"],
+  "labels": [
+    "Work",
+    "Important"
+  ],
   "importance": "normal"
 }
