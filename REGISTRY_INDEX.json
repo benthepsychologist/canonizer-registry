@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2025-11-13T17:32:03.781401+00:00",
+  "generated_at": "2025-11-13T19:48:44.786805+00:00",
   "transforms": [
     {
       "id": "email/exchange_to_jmap_full",
