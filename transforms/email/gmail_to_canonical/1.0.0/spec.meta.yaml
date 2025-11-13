@@ -7,6 +7,9 @@ engine: jsonata
 from_schema: iglu:com.google/gmail_email/jsonschema/1-0-0
 to_schema: iglu:org.canonical/email/jsonschema/1-0-0
 
+# Transform file
+spec_path: spec.jsonata
+
 # Golden tests (required)
 tests:
   - input: tests/input.json
