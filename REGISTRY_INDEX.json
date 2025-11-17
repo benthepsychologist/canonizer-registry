@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2025-11-17T20:56:53.756968+00:00",
+  "generated_at": "2025-11-17T21:44:33.847289+00:00",
   "transforms": [
     {
       "id": "email/exchange_to_jmap_full",
@@ -167,6 +167,10 @@
     {
       "uri": "iglu:org.canonical/email_jmap_minimal/jsonschema/1-0-0",
       "path": "schemas/org.canonical/email_jmap_minimal/jsonschema/1-0-0.json"
+    },
+    {
+      "uri": "iglu:org.canonical/form_mapping/jsonschema/1-0-0",
+      "path": "schemas/org.canonical/form_mapping/jsonschema/1-0-0.json"
     },
     {
       "uri": "iglu:org.canonical/form_response/jsonschema/1-0-0",
