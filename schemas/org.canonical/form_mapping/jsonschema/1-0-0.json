@@ -1,0 +1,106 @@
+{
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+  "description": "Schema for mapping platform-specific form data to canonical questionnaire measure items. Defines how to translate platform IDs (e.g., 'entry.123456') to canonical item IDs (e.g., 'phq_9_1') and recode answer values from text to numeric. Used by final-form for semantic processing.",
+  "self": {
+    "vendor": "org.canonical",
+    "name": "form_mapping",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "form_metadata": {
+      "type": "object",
+      "description": "Metadata about the specific form being mapped",
+      "properties": {
+        "form_name": {
+          "type": "string",
+          "description": "Human-readable form name",
+          "examples": ["MBC Initial Assessment - PHQ-9 v1", "Intake Form - GAD-7"]
+        },
+        "form_platform": {
+          "type": "string",
+          "description": "Form platform identifier",
+          "enum": ["google_forms", "typeform", "qualtrics", "redcap", "surveymonkey", "jotform", "other"],
+          "examples": ["google_forms", "typeform"]
+        },
+        "form_id": {
+          "type": "string",
+          "description": "Platform-specific form identifier (URL, UUID, etc.)",
+          "examples": ["1FAIpQLScXYZ...", "abc123def456"]
+        },
+        "created_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date this mapping was created (YYYY-MM-DD)"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes about this mapping"
+        }
+      },
+      "required": ["form_name", "form_platform"],
+      "additionalProperties": false
+    },
+    "measure_id": {
+      "type": "string",
+      "description": "Canonical measure identifier from questionnaire-registry (e.g., 'phq_9', 'gad_7')",
+      "pattern": "^[a-z0-9_]+$",
+      "examples": ["phq_9", "gad_7", "phlms_10"]
+    },
+    "item_mappings": {
+      "type": "array",
+      "description": "Array of item-level mappings from platform IDs to canonical IDs",
+      "items": {
+        "type": "object",
+        "properties": {
+          "form_question_id": {
+            "type": "string",
+            "description": "Platform-specific question identifier",
+            "examples": ["entry.123456789", "a1b2c3d4-uuid", "q1"]
+          },
+          "canonical_item_id": {
+            "type": "string",
+            "description": "Canonical item ID from questionnaire measure (e.g., 'phq_9_1')",
+            "pattern": "^[a-z0-9_]+_[0-9]+$",
+            "examples": ["phq_9_1", "gad_7_3", "phlms_10_5"]
+          },
+          "value_mappings": {
+            "type": "object",
+            "description": "Optional custom value mappings for this item. If not provided, uses measure's default anchor labels.",
+            "patternProperties": {
+              "^.*$": {
+                "type": "number",
+                "description": "Maps form answer value (text or numeric-as-string) to numeric value"
+              }
+            },
+            "additionalProperties": false,
+            "examples": [
+              {
+                "Not at all": 0,
+                "Several days": 1,
+                "More than half the days": 2,
+                "Nearly every day": 3
+              },
+              {
+                "0": 0,
+                "1": 1,
+                "2": 2,
+                "3": 3
+              }
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "description": "Optional notes about this specific item mapping"
+          }
+        },
+        "required": ["form_question_id", "canonical_item_id"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["form_metadata", "measure_id", "item_mappings"],
+  "additionalProperties": false
+}
