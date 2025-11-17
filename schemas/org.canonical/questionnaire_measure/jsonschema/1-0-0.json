@@ -1,0 +1,166 @@
+{
+  "$schema": "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
+  "description": "Schema for standardized mental health questionnaire measures. Defines questionnaire structure, items, response scales, scoring rules, and interpretation ranges. Used by questionnaire-registry to validate measure definitions.",
+  "self": {
+    "vendor": "org.canonical",
+    "name": "questionnaire_measure",
+    "format": "jsonschema",
+    "version": "1-0-0"
+  },
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Full name of the questionnaire measure",
+      "examples": ["Patient Health Questionnaire-9", "Generalized Anxiety Disorder-7"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of what the measure assesses and how it works"
+    },
+    "interpretation": {
+      "type": "string",
+      "description": "Clinical interpretation guidance and usage notes"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "Instructions presented to respondents (e.g., 'Over the last 2 weeks...')"
+    },
+    "item_prefix": {
+      "type": "string",
+      "description": "Canonical item ID prefix (e.g., 'phq_9_', 'gad_7_')",
+      "pattern": "^[a-z0-9_]+_$",
+      "examples": ["phq_9_", "gad_7_", "phlms_10_"]
+    },
+    "anchors": {
+      "type": "object",
+      "description": "Response scale definition with numeric values and text labels",
+      "properties": {
+        "min": {
+          "type": "number",
+          "description": "Minimum anchor value"
+        },
+        "max": {
+          "type": "number",
+          "description": "Maximum anchor value"
+        },
+        "labels": {
+          "type": "object",
+          "description": "Mapping of numeric values to text labels",
+          "patternProperties": {
+            "^[0-9]+(\\.[0-9]+)?$": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": ["min", "max", "labels"],
+      "additionalProperties": false
+    },
+    "items": {
+      "type": "array",
+      "description": "Array of item text strings in order",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "scores": {
+      "type": "object",
+      "description": "Scoring definitions for subscales (one or more)",
+      "patternProperties": {
+        "^[a-z0-9_]+$": {
+          "type": "object",
+          "properties": {
+            "included_items": {
+              "type": "array",
+              "description": "Array of item numbers (1-indexed) included in this subscale",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "minItems": 1
+            },
+            "reversed_items": {
+              "type": "array",
+              "description": "Array of item numbers (1-indexed) that are reverse-scored",
+              "items": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "scoring": {
+              "type": "object",
+              "description": "Scoring method and parameters",
+              "properties": {
+                "method": {
+                  "type": "string",
+                  "enum": ["sum", "average", "sum_then_double"],
+                  "description": "Scoring method to apply"
+                },
+                "min": {
+                  "type": "number",
+                  "description": "Minimum possible score"
+                },
+                "max": {
+                  "type": "number",
+                  "description": "Maximum possible score"
+                },
+                "higher_is_better": {
+                  "type": "boolean",
+                  "description": "Whether higher scores indicate better outcomes"
+                },
+                "note": {
+                  "type": "string",
+                  "description": "Optional notes about scoring method"
+                }
+              },
+              "required": ["method", "min", "max", "higher_is_better"],
+              "additionalProperties": false
+            },
+            "ranges": {
+              "type": "array",
+              "description": "Interpretation ranges with severity labels",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "min": {
+                    "type": "number",
+                    "description": "Minimum score for this range (inclusive)"
+                  },
+                  "max": {
+                    "type": "number",
+                    "description": "Maximum score for this range (inclusive)"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "Human-readable label for this range"
+                  },
+                  "severity": {
+                    "type": "string",
+                    "description": "Severity classification",
+                    "examples": ["minimal", "mild", "moderate", "moderately_severe", "severe", "low", "high"]
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Detailed description of what this range means"
+                  }
+                },
+                "required": ["min", "max", "label", "severity", "description"],
+                "additionalProperties": false
+              },
+              "minItems": 1
+            }
+          },
+          "required": ["included_items", "reversed_items", "scoring", "ranges"],
+          "additionalProperties": false
+        }
+      },
+      "minProperties": 1,
+      "additionalProperties": false
+    }
+  },
+  "required": ["name", "description", "item_prefix", "anchors", "items", "scores"],
+  "additionalProperties": true
+}
