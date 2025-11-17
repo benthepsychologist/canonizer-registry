@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated_at": "2025-11-13T19:48:44.786805+00:00",
+  "generated_at": "2025-11-17T13:59:18.793076+00:00",
   "transforms": [
     {
       "id": "email/exchange_to_jmap_full",
@@ -120,9 +120,30 @@
           "created_utc": "2025-11-13T12:00:00+00:00"
         }
       ]
+    },
+    {
+      "id": "forms/google_forms_to_canonical",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "from_schema": "iglu:com.google/forms_response/jsonschema/1-0-0",
+          "to_schema": "iglu:org.canonical/form_response/jsonschema/1-0-0",
+          "status": "stable",
+          "path": "transforms/forms/google_forms_to_canonical/1.0.0/",
+          "checksum": {
+            "jsonata_sha256": "265c20befcce7895e83b00c72faf78cb912c2b4a256b6993d722bc65d8278204"
+          },
+          "author": "Ben Machina <ben@therapyai.com>",
+          "created_utc": "2025-11-17T12:00:00+00:00"
+        }
+      ]
     }
   ],
   "schemas": [
+    {
+      "uri": "iglu:com.google/forms_response/jsonschema/1-0-0",
+      "path": "schemas/com.google/forms_response/jsonschema/1-0-0.json"
+    },
     {
       "uri": "iglu:com.google/gmail_email/jsonschema/1-0-0",
       "path": "schemas/com.google/gmail_email/jsonschema/1-0-0.json"
@@ -146,6 +167,10 @@
     {
       "uri": "iglu:org.canonical/email_jmap_minimal/jsonschema/1-0-0",
       "path": "schemas/org.canonical/email_jmap_minimal/jsonschema/1-0-0.json"
+    },
+    {
+      "uri": "iglu:org.canonical/form_response/jsonschema/1-0-0",
+      "path": "schemas/org.canonical/form_response/jsonschema/1-0-0.json"
     }
   ]
 }
